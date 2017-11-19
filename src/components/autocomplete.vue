@@ -3,14 +3,14 @@
     <input type="search" class="query-input"
            v-model="localValue"
            :placeholder="placeholder"
-           v-on:keydown="onKeydown($event)">
+           @keydown="onKeydown($event)">
     <div class="click-overlay"
-         v-on:click="dismissSuggestions"
+         @click="dismissSuggestions"
          v-if="suggestionsShown"></div>
     <ul class="suggestions" v-if="suggestionsShown">
       <li v-for="(item, index) in filteredList"
-          v-bind:class="{selected: highlightedIndex === index}">
-        <a v-on:click="select(item)" >{{item}}</a>
+          :class="{selected: highlightedIndex === index}">
+        <a @click="select(item)" >{{item}}</a>
       </li>
     </ul>
   </div>

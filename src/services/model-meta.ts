@@ -74,6 +74,8 @@ export class ModelMetaService {
   }
 }
 
+export default new ModelMetaService();
+
 enum PropertyType {
   primitive,
   object,
@@ -139,7 +141,7 @@ export class ModelProperty {
   }
 }
 
-interface IRawModelType {
+export interface IRawModelType {
   _extends: string;
   attributes: string[];
   fields: any; // Seems we can't use the Map<string, stuff> yet. Browser complains.
