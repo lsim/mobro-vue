@@ -14,14 +14,17 @@ export default class LogAreaComponent extends Vue {
 
   cleanup: (() => any)[] = [];
 
-  @Prop() numLines: number;
+  @Prop() numLines: string;
+  get numLinesNumber() { // Workaround to type error when prop is given 'number' type
+    return parseInt(this.numLines, 10);
+  }
 
   constructor() {
     super();
     let detachEvent = logService.entryLogged.attach((logEntry: LogEntry) => {
       this.displayedEntries.unshift(logEntry);
-      if(this.displayedEntries.length > this.numLines) {
-        this.displayedEntries.splice(this.numLines, this.displayedEntries.length - this.numLines);
+      if(this.displayedEntries.length > this.numLinesNumber) {
+        this.displayedEntries.splice(this.numLinesNumber, this.displayedEntries.length - this.numLinesNumber);
       }
     });
     this.cleanup.push(detachEvent);

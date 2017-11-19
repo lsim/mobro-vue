@@ -1,23 +1,25 @@
 <template>
   <div id="app">
     <div class="icon"></div>
-    <img src="./assets/logo.png">
-    <HelloWorld/>
     <LogArea numLines="3">foo</LogArea>
+    <AutoComplete
+      :placeholder="'placeholder?!'"
+      :options="['opt1','opt2','opt3' ]"></AutoComplete>
   </div>
 </template>
 
 <script lang="ts">
   import Vue from 'vue'
   import { Component } from 'vue-property-decorator'
-  import HelloWorld from './components/HelloWorld'
-  import LogArea from './components/log-area.vue'
+//  import HelloWorld from './components/HelloWorld'
+  import LogArea from './components/log-area'
+  import AutoComplete from './components/autocomplete'
   import logger from './services/logger'
 
   @Component({
     components: {
-      HelloWorld,
-      LogArea
+      LogArea,
+      AutoComplete
     }
   })
   export default class App extends Vue {
@@ -38,12 +40,5 @@
     .icon {
       @include icon-mixin('house');
     }
-
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #2c3e50;
-    margin-top: 60px;
   }
 </style>
