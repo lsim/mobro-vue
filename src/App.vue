@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <div class="icon"></div>
     <img src="./assets/logo.png">
     <HelloWorld/>
     <LogArea numLines="3">foo</LogArea>
@@ -33,12 +34,16 @@
 
 <style lang="scss">
   @import 'styling/main.scss';
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+  #app {
+    .icon {
+      @include icon-mixin('house');
+    }
+
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;
+    margin-top: 60px;
+  }
 </style>

@@ -1,9 +1,69 @@
+@import './material-palette';
 
+@mixin icon-mixin($iconName) {
+  mask-image: url("assets/svg/iconset/" + $iconName + ".svg");
+  background-color: black;
+  height: 1em;
+  width: 1em;
+}
 
-#app {
+/* Reset */
+html,
+body,
+div,
+ul {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
 
-  h1 {
-    font-style: italic;
-  }
+/* Box-sizing border-box */
+* {
+  box-sizing: border-box;
+}
 
+/* Set up a default font and some padding to provide breathing room */
+body {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+p {
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  line-height: 20px;
+  margin-bottom: 1em;
+  margin-top: 1em;
+}
+
+li {
+  font-weight: 400;
+  margin-top: 4px;
+}
+
+input {
+  border: 1px solid palette(Blue);
+  font-size: 14px;
+  height: 40px;
+  outline: none;
+  padding: 8px;
+}
+
+button, .button {
+  background-color: palette(Blue);
+  border-style: none;
+  color: white;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 14px;
+  height: 40px;
+  padding: 8px 18px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+button:hover {
+  background-color: palette(Light Blue);
 }
