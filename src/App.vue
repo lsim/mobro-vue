@@ -12,7 +12,7 @@
   import { Component } from 'vue-property-decorator'
   import HelloWorld from './components/HelloWorld'
   import LogArea from './components/log-area.vue'
-  import logService from './services/logger'
+  import logger from './services/logger'
 
   @Component({
     components: {
@@ -26,7 +26,7 @@
 
     mounted() {
       setInterval(() => {
-        logService.logMsg("Here's a message! " + this.counter++);
+        logger.logMsg("Here's a message! " + this.counter++);
       }, 1000)
     }
   }
