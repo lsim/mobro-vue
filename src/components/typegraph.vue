@@ -40,7 +40,7 @@
       <!-- Now all the nodes -->
       <g v-for="node in graph.nodes"
          :transform="node.data.transform"
-         draggable (mousedrag)="node.data.drag($event)" (dragend)="node.data.dragEnd()"
+         draggable @mousedrag="node.data.drag($event)" @dragend="node.data.dragEnd()"
          @click="onClick(node, $event)">
         <circle
           :r="nodeSize/2"

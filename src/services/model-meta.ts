@@ -152,7 +152,7 @@ export class ModelType {
   name: string;
   superType: ModelType;
   ancestors: Array<ModelType>;
-  properties: Array<ModelProperty>;
+  properties: Array<ModelProperty> = [];
   attributes: Array<string>;
   rawModelEntity: IRawModelType;
   subtypes: Array<ModelType> = [];
