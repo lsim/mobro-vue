@@ -21,7 +21,7 @@ export default class LogAreaComponent extends Vue {
     let detachEvent = logService.entryLogged.attach((logEntry: LogEntry) => {
       this.displayedEntries.unshift(logEntry);
       if(this.displayedEntries.length > this.numLines) {
-        this.displayedEntries.splice(this.numLines - 1, this.displayedEntries.length - this.numLines);
+        this.displayedEntries.splice(this.numLines, this.displayedEntries.length - this.numLines);
       }
     });
     this.cleanup.push(detachEvent);
