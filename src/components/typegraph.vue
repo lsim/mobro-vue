@@ -40,7 +40,7 @@
       <!-- Now all the nodes -->
       <g v-for="node in graph.nodes"
          :transform="node.data.transform"
-         draggable @mousedrag="node.data.drag($event)" @dragend="node.data.dragEnd()"
+         @mousedown="mouseDownHandler(node, $event)"
          @click="onClick(node, $event)">
         <circle
           :r="nodeSize/2"
@@ -87,6 +87,23 @@
       );
     }
 
+    // Drag handling
+    mouseDownHandler(node: ANode, mouseDownEvent: MouseEvent) {
+      const handleMouseUp = (mouseUpEvent: MouseEvent) => {
+        window.removeEventListener('mousemove', handleMouseMove);
+        window.removeEventListener('mouseup', handleMouseUp);
+        node.data.dragEnd();
+      };
+      const handleMouseMove = (mouseMoveEvent: MouseEvent) => {
+        node.data.drag({
+          x: mouseMoveEvent.clientX - mouseDownEvent.x,
+          y: mouseMoveEvent.clientY - mouseDownEvent.y
+        });
+      };
+      window.addEventListener('mousemove', handleMouseMove);
+      window.addEventListener('mouseup', handleMouseUp);
+    }
+
 //    ngOnChanges(changes: {[propertyName: string]: SimpleChange}) {
 //      this.renderGraphFromNodes(this.modelTypes);
 //    }
@@ -97,7 +114,6 @@
 
     @Watch('modelTypes', { deep: true })
     onModelTypesChange(newTypes: Array<ModelType>) {
-      console.debug("Triggering graph render!");
       this.renderGraphFromNodes(newTypes);
     }
 
