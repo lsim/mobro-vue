@@ -104,14 +104,6 @@
       window.addEventListener('mouseup', handleMouseUp);
     }
 
-//    ngOnChanges(changes: {[propertyName: string]: SimpleChange}) {
-//      this.renderGraphFromNodes(this.modelTypes);
-//    }
-
-//    ngAfterViewInit() {
-//      this.locationPathname = location.pathname; // workaround to incompatibility between angular router and svg marker references
-//    }
-
     @Watch('modelTypes', { deep: true })
     onModelTypesChange(newTypes: Array<ModelType>) {
       this.renderGraphFromNodes(newTypes);

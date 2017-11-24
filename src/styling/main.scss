@@ -1,10 +1,30 @@
 @import './material-palette';
 
 @mixin icon-mixin($iconName) {
-  mask-image: url("assets/svg/iconset/" + $iconName + ".svg");
+  mask-image: url("./assets/svg/iconset/" + $iconName + ".svg");
   background-color: black;
   height: 1em;
   width: 1em;
+}
+
+$border: solid 1px palette(Blue);
+$propertyOddColor: palette(White, Secondary Text);
+
+@mixin truncate() {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@mixin deEmphasize() {
+  font-size: 80%;
+  font-style: italic;
+}
+
+@mixin linklike() {
+  cursor: pointer;
+  text-decoration: underline;
+  color: palette(Blue);
 }
 
 /* Reset */

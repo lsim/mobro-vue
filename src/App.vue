@@ -4,31 +4,41 @@
     <TypeGraph :modelTypes="modelTypes" :model-types="modelTypes"></TypeGraph>
     <AutoComplete
       :placeholder="'placeholder?!'"
-      :options="['opt1','opt2','opt3','foo1', 'foo2' ]">
+      :options="['opt1','opt2','opt3','foo1', 'foo2' ]"
+      v-model="autoCompleteOutput">
     </AutoComplete>
     <LogArea numLines="3"></LogArea>
+    <mobro></mobro>
   </div>
 </template>
 
 <script lang="ts">
   import Vue from 'vue'
-  import { Component } from 'vue-property-decorator'
+  import {Component, Watch} from 'vue-property-decorator'
   import TypeGraph from './components/typegraph'
   import LogArea from './components/log-area'
   import AutoComplete from './components/autocomplete'
   import logger from './services/logger'
-  import { IRawModelType, ModelType } from "./services/model-meta";
+  import { IRawModelType, ModelType } from "./services/model-meta"
+  import MoBro from './components/mobro'
 
   @Component({
     components: {
       LogArea,
       AutoComplete,
-      TypeGraph
+      TypeGraph,
+      mobro: MoBro
     }
   })
   export default class App extends Vue {
 
     counter = 0;
+    autoCompleteOutput: string = "initial?";
+
+    @Watch('autoCompleteOutput')
+    onOutputChange(newValue: string) {
+      console.debug("New value", newValue);
+    }
 
     modelTypes: Array<ModelType> = [
       new ModelType(<IRawModelType>{
@@ -57,7 +67,7 @@
   @import 'styling/main.scss';
   #app {
     .icon {
-      @include icon-mixin('house');
+      @include icon-mixin(house);
     }
   }
 </style>

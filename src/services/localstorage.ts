@@ -29,3 +29,5 @@ export class LocalStorage {
     this.localStorage.removeItem(key);
   }
 }
+
+export default new LocalStorage();

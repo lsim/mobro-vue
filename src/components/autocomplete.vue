@@ -64,12 +64,12 @@
       }
       this.suggestionsShown = this.filteredList.length > 0;
       this.highlightedIndex = 0;
-      this.$emit('valueChange', this.localValue);
+      this.$emit('input', this.localValue);
     }
 
     setNewValue(value: string) {
       this.localValue = value;
-      this.$emit('valueChange', this.localValue);
+      this.$emit('input', this.localValue);
     }
 
     dismissSuggestions() {
