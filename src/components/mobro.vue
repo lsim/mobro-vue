@@ -57,9 +57,9 @@
   })
   export default class MoBro extends Vue {
 
-    allTypes: Array<string>;
-    allProperties: Array<string>;
-    typeMap: {[key: string]: ModelType};
+    allTypes: Array<string> = [];
+    allProperties: Array<string> = [];
+    typeMap: {[key: string]: ModelType} = {};
     typeSearchString = '';
     propSearchString = '';
     modelTypes: Array<ModelType> = [];
@@ -153,7 +153,7 @@
   @import '../styling/material-palette';
 
   .lookupgraph {
-    flex: 1 1 auto; //Note: this doesn't belong here, but for some reason styling won't apply to siblings of router output
+    /*flex: 1 1 auto; //Note: this doesn't belong here, but for some reason styling won't apply to siblings of router output*/
     display: flex;
     flex-direction: column;
   }
@@ -171,31 +171,27 @@
       &__clear-button {
         background-color: palette(Red);
       }
-
-      &__aggregation-toggle {
-        width: 10em;
-      }
-      &__inheritance-toggle {
-        width: 10em;
-      }
     }
 
     &__entity-canvas {
       flex: 1 1 auto;
       display: flex;
       flex-wrap: wrap;
+      position: relative;
 
       &__logarea {
         position:absolute;
-        height: 20%;
         z-index: -1;
+        left: 5px;
+        top: 5px;
+
 
         &::before {
           content: "";
           position: absolute;
           width: 100%;
           height: 100%;
-          background-image: linear-gradient(to bottom, rgba(255,255,255, .8), white);
+          background-image: linear-gradient(to bottom, rgba(255,255,255, .6), white);
         }
       }
 

@@ -4,7 +4,7 @@
       <h1>MoBro</h1>
       <span v-if="modelDetails" class="current-server__details">{{modelDetails.host}} - mapi: {{modelDetails.mapi}} - cis: {{modelDetails.cis}}</span>
     </span>
-    <form class="server-selector" @submit.prevent="setCurrentCis(input.value)">
+    <form class="server-selector" @submit.prevent="setCurrentCis(inputContent)">
       <autocomplete v-model="inputContent"
                        :options="knownHosts"
                        :placeholder="'server - eg funklateststandalone)'"
@@ -19,8 +19,13 @@
   import { Component } from 'vue-property-decorator';
   import modelMetaService, { ModelDetails } from '../services/model-meta'
   import localStorageService from '../services/localstorage'
+  import AutoComplete from './autocomplete'
 
-  @Component
+  @Component({
+    components: {
+      autocomplete: AutoComplete
+    }
+  })
   export default class ToolBar extends Vue {
     inputContent: string = '';
     selectedHost: string = '';
