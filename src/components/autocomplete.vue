@@ -40,9 +40,13 @@
       this.localValue = this.value;
     }
 
-    @Watch('localValue', { immediate: true })
-    onLocalValueChanged(value: string, oldValue: string) {
+    @Watch('localValue')
+    onLocalValueChanged() {
       this.updateSuggestions();
+    }
+    @Watch('value')
+    onValueChanged() {
+      this.localValue = this.value;
     }
 
     updateSuggestions() {

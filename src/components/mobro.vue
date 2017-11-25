@@ -11,7 +11,7 @@
       <button type="submit" class="lookup-bn">Look up</button>
       <button type="button" @click="clearSelection" class="clear-bn">Clear</button>
     </form>
-    <!--<logarea :numLines="5" class="logarea"></logarea>-->
+    <logarea :numLines="5" class="logarea"></logarea>
     <typegraph
       class="typegraph"
       :modelTypes="modelTypes"
@@ -99,7 +99,6 @@
     addTypeToCollection(modelType: ModelType) {
       if(modelType && this.modelTypes.indexOf(modelType) < 0) {
         this.modelTypes.push(modelType);
-        this.modelTypes = this.modelTypes.slice(); // Force angular to detect the change to the array
       }
     }
 
@@ -114,7 +113,6 @@
     }
 
     lookupEntity() {
-      console.debug(this.typeSearchString, this.propSearchString);
       if(this.typeSearchString) {
         if(this.addTypeByName(this.typeSearchString)) {
           this.typeSearchString = '';
@@ -131,7 +129,6 @@
       if(event.detail === 2) { // double click
         this.toggleTypeInCollection(modelType);
       }
-      //console.debug('modelTypeClicked', modelType, event);
     }
 
     clearSelection() {
@@ -143,13 +140,16 @@
 <style lang="scss">
   @import '../styling/material-palette';
 
-  // Anchor elements into the grid
-  .toolbar { grid-area: toolbar; }
-  .query-form { grid-area: queryform; }
-  .typegraph { grid-area: typegraph; }
-  .entity-description-container { grid-area: entitydescriptioncontainer; overflow-y: auto; }
-
   .mobro {
+
+    // Anchor elements into the grid
+    .toolbar { grid-area: toolbar; }
+    .query-form { grid-area: queryform; }
+    .typegraph { grid-area: typegraph; }
+    .logarea { grid-area: typegraph; }
+    .entity-description-container { grid-area: entitydescriptioncontainer; overflow-y: auto; }
+
+    // Define the overall page layout
     display: grid;
     grid-template-rows: 50px auto 1fr;
     grid-template-columns: 5fr 3fr;
@@ -157,12 +157,19 @@
       "toolbar toolbar"
       "queryform queryform"
       "typegraph entitydescriptioncontainer";
+
     // Prevent main screen from scrolling - only entity descriptors should scroll vertically
     max-height: 100vh;
+
+    // Lay out the form inputs
+    .query-form {
+      display: grid;
+      grid-template-columns: 1fr 1fr auto auto;
+    }
+
+    .clear-bn {
+      background-color: palette(Red);
+    }
   }
 
-  .query-form {
-    display: grid;
-    grid-template-columns: 1fr 1fr auto auto;
-  }
 </style>

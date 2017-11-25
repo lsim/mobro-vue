@@ -13,10 +13,10 @@
       <div class="entity_details_inheritors">
         Inheritors:
         <span v-if="modelType.subtypes.length == 0">(none)</span>
-        <span v-for="subtype in modelType.subtypes">
+        <span v-for="(subtype, idx) in modelType.subtypes">
       <span class="entity_details_inheritors_inheritor"
             @click="navigateTo(subtype)">{{subtype.name}}</span><!--
-   --><span>,</span>
+   --><span v-if="isntLastInheritor(idx)">, </span>
     </span>
       </div>
       <div class="entity_details_properties">
@@ -69,6 +69,10 @@
 
     isntLastInboundRef(index: number) {
       return index < this.modelType.inboundRefs.length - 1;
+    }
+
+    isntLastInheritor(index: number) {
+      return index < this.modelType.subtypes.length - 1;
     }
   }
 </script>
