@@ -33,9 +33,9 @@
       <div class="entity_details_inbound_refs">
         Inbound references:
         <span v-if="modelType.inboundRefs.length == 0">(none)</span>
-        <span v-for="inboundRef in modelType.inboundRefs">
+        <span v-for="(inboundRef, idx) in modelType.inboundRefs">
       <span @click="navigateTo(inboundRef.ownerType)" class="inbound_ref">{{inboundRef.ownerType.name}}.{{inboundRef.propName}}</span><!--
-   --><span>,</span>
+   --><span v-if="isntLastInboundRef(idx)">, </span>
     </span>
       </div>
     </div>
@@ -65,6 +65,10 @@
       if (name) {
         this.$emit('navigate', name);
       }
+    }
+
+    isntLastInboundRef(index: number) {
+      return index < this.modelType.inboundRefs.length - 1;
     }
   }
 </script>
@@ -100,7 +104,7 @@
       }
 
       .entity_remove_link {
-        //@include icon-mixin(cancel); // TODO: get this working again
+        @include icon-mixin(cancel);
         @include linklike();
         background-color: palette(Red);
 

@@ -1,7 +1,7 @@
 @import './material-palette';
 
 @mixin icon-mixin($iconName) {
-  mask-image: url("./assets/svg/iconset/" + $iconName + ".svg");
+  mask-image: url("/assets/svg/iconset/" + $iconName + ".svg");
   background-color: black;
   height: 1em;
   width: 1em;
