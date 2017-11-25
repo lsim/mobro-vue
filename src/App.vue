@@ -7,7 +7,7 @@
       :options="['opt1','opt2','opt3','foo1', 'foo2' ]"
       v-model="autoCompleteOutput">
     </AutoComplete>
-    <LogArea numLines="3"></LogArea>
+    <LogArea :numLines="3"></LogArea>
     <mobro></mobro>
   </div>
 </template>
