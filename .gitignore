@@ -13,3 +13,4 @@ yarn-error.log*
 *.njsproj
 *.sln
 dev-data.json
+mobro-bundle.zip
