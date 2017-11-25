@@ -20,7 +20,7 @@
     </span>
       </div>
       <div class="entity_details_properties">
-        <entity-properties :modelType="modelType" v-if="modelType.properties.length > 0" (navigate)="navigateTo($event)"></entity-properties>
+        <entity-properties :modelType="modelType" v-if="modelType.properties.length > 0" @navigate="navigateTo($event)"></entity-properties>
       </div>
       <div v-for="ancestorType in modelType.ancestors" class="entity_details_properties">
         <div v-if="ancestorType.properties.length > 0">
