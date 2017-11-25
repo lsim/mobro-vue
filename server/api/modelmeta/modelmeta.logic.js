@@ -1,4 +1,6 @@
 let httpRequest = require('../../services/http-request');
+let config = require('../../config');
+let fs = require('fs');
 
 function extractVersions(systemXmlObj) {
   let systemObj = {};
@@ -10,7 +12,34 @@ function extractVersions(systemXmlObj) {
   }
 }
 
+function getMockedModelMetaData() {
+  return new Promise((resolve, reject) => {
+    fs.readFile(config.MOCK_DATA_PATH, 'utf-8', (err, data) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(JSON.parse(data));
+      }
+    })
+  });
+}
+
+function getMockedSystemData() {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({
+        cis: 'mocked-cis',
+        mapi: 'mocked-mapi',
+        database: 'mocked-db'
+      })
+    })
+  });
+}
+
 function getModelMetaData(targetHost) {
+  if (targetHost === 'mock') {
+    return getMockedModelMetaData();
+  }
   const modelMetaRequestOptions = {
     hostname: targetHost,
     port: 8081,
@@ -26,6 +55,9 @@ function getModelMetaData(targetHost) {
 }
 
 function getSystemData(targetHost) {
+  if (targetHost === 'mock') {
+    return getMockedSystemData();
+  }
   const systemRequestOptions = {
     hostname: targetHost,
     port: 8080,
@@ -63,8 +95,5 @@ module.exports = {
         system: systemResult
       });
     });
-  },
-
-  foo: () => 42
-
+  }
 };

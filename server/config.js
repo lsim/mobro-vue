@@ -6,5 +6,6 @@ let BUILD_TYPE = 'prod';
 module.exports = {
 
   STATIC_CONTENT_ROOT: `${__dirname}/../../dist/${BUILD_TYPE}`,
-  NODE_MODULES_ROOT: `${__dirname}/../../node_modules`
+  NODE_MODULES_ROOT: `${__dirname}/../../node_modules`,
+  MOCK_DATA_PATH: `${__dirname}/dev-data.json`
 };

@@ -34,6 +34,9 @@ export class ModelMetaService {
         resolve(typeHierarchy);
       });
     }
+    if (!this.currentModelMetaHost) {
+      return Promise.reject("No model meta host to query from");
+    }
     return this.sendFapiRequest('all', this.currentModelMetaHost)
       .then((responseObj: any) => {
         this.handleNewModelDetails(responseObj.system);
@@ -69,7 +72,7 @@ export class ModelMetaService {
     };
 
     return axios.get(url, axiosConfig)
-      .then(x => JSON.parse(x.data))
+      .then(x => x.data)
       .catch(error => console.debug(`Request for ${url} failed with error ${error}`));
   }
 }
