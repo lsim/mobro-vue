@@ -115,12 +115,12 @@
     lookupEntity() {
       if(this.typeSearchString) {
         if(this.addTypeByName(this.typeSearchString)) {
-          this.typeSearchString = '';
+          setTimeout(() => this.typeSearchString = '');
         }
       } else if(this.propSearchString) {
         let typeNameMatch = this.propSearchString.match(/^[^\.]+/);
         if(typeNameMatch && this.addTypeByName(typeNameMatch[0])) {
-          this.propSearchString = '';
+          setTimeout(() => this.propSearchString = '');
         }
       }
     }

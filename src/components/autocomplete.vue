@@ -45,8 +45,8 @@
       this.updateSuggestions();
     }
     @Watch('value')
-    onValueChanged() {
-      this.localValue = this.value;
+    onValueChanged(newValue: string) {
+      this.localValue = newValue;
     }
 
     updateSuggestions() {
@@ -82,7 +82,7 @@
 
     select(item: string) {
       this.setNewValue(item);
-      this.dismissSuggestions();
+      setTimeout(() => this.dismissSuggestions(), 10);
     }
 
     onKeydown(event: any) {
@@ -93,8 +93,9 @@
       } else if(event.code === 'Enter' &&
         this.filteredList.length > this.highlightedIndex &&
         this.suggestionsShown) {
-        this.setNewValue(this.filteredList[this.highlightedIndex]);
-        this.dismissSuggestions();
+        this.select(this.filteredList[this.highlightedIndex]);
+        // Return to let the enter press propagate!
+        return;
       } else {
         return;
       }
