@@ -11,7 +11,7 @@
       <button type="submit" class="lookup-bn">Look up</button>
       <button type="button" @click="clearSelection" class="clear-bn">Clear</button>
     </form>
-    <logarea :numLines="5" class="logarea"></logarea>
+    <logarea :numLines="10" class="logarea"></logarea>
     <typegraph
       class="typegraph"
       :modelTypes="modelTypes"
@@ -74,7 +74,7 @@
         this.allProperties = this.getAllProperties(fullTypeHierarchy);
         logService.logMsg(`Loaded ${this.allTypes.length} entities and ${this.allProperties.length} properties from ${host}`);
         selectedTypes.forEach((typeName) => this.addTypeByName(typeName));
-      }).catch((error) => {
+      }).catch(() => {
         logService.logErr(`Failed loading type information from ${host}`);
       });
     }
@@ -139,8 +139,13 @@
 </script>
 <style lang="scss">
   @import '../styling/material-palette';
+  @import '../styling/main';
 
   .mobro {
+
+    //
+    // Layout
+    //
 
     // Anchor elements into the grid
     .toolbar { grid-area: toolbar; }
@@ -167,8 +172,27 @@
       grid-template-columns: 1fr 1fr auto auto;
     }
 
+    //
+    // Styling
+    //
     .clear-bn {
       background-color: palette(Red);
+    }
+
+    .logarea {
+      height: 5em;
+      position: relative;
+      z-index: -1;
+      overflow-y: hidden;
+      left: 5px;
+      top: 5px;
+      &::before {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-image: linear-gradient(to bottom, rgba(255,255,255, .6), white);
+      }
     }
   }
 

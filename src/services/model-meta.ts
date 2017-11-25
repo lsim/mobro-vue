@@ -73,19 +73,22 @@ export class ModelMetaService {
 
     return axios.get(url, axiosConfig)
       .then(x => x.data)
-      .catch(error => console.debug(`Request for ${url} failed with error ${error}`));
+      .catch(error => {
+        console.debug(`Request for ${url} failed with error ${error}`);
+        throw error;
+      });
   }
 }
 
 export default new ModelMetaService();
 
-enum PropertyType {
-  primitive,
-  object,
-  enum,
-  reference,
-  collection
-}
+// enum PropertyType {
+//   primitive,
+//   object,
+//   enum,
+//   reference,
+//   collection
+// }
 
 interface IRawModelProperty {
   // all

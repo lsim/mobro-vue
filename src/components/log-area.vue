@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="logarea">
     <div v-for="entry in displayedEntries" v-bind:class="'logentry__' + entry.type">{{entry.message}}</div>
   </div>
 </template>
@@ -34,6 +34,18 @@ export default class LogAreaComponent extends Vue {
 }
 </script>
 <style lang="scss">
+  @import '../styling/material-palette';
+  .logarea {
 
+    .logentry {
+      &__error {
+        color: palette(Red)
+      }
+
+      &__message {
+        color: palette(Green)
+      }
+    }
+  }
 </style>
 
