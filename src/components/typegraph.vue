@@ -24,13 +24,13 @@
         </marker>
       </defs>
       <!-- The edges first (under the nodes) -->
-      <line v-for="edge in graph.edges"
+      <line v-for="edge in graph.edges" :key="edge.id"
             :class="'edge edge--'+edge.data.type"
             :x1="edge.data.pos1.x" :y1="edge.data.pos1.y"
             :x2="edge.data.pos2.x" :y2="edge.data.pos2.y"
             :marker-end="'url('+locationPathname+'#'+edge.data.type+'-arrow)'"></line>
       <!-- all edge labels -->
-      <text v-for="edge in graph.edges"
+      <text v-for="edge in graph.edges" :key="edge.id"
             text-anchor="middle"
             :x="edge.data.labelPos.x"
             :y="edge.data.labelPos.y">
@@ -38,7 +38,7 @@
                :dy="index === 0 ? '' : '1em'" :dx="index === 0 ? '' : '-5em'">{{label}}</tspan>
       </text>
       <!-- Now all the nodes -->
-      <g v-for="node in graph.nodes"
+      <g v-for="node in graph.nodes" :key="node.id"
          :transform="node.data.transform"
          @mousedown="mouseDownHandler(node, $event)"
          @click="onClick(node, $event)">
@@ -60,8 +60,8 @@
   export default class TypeGraphComponent extends Vue {
 
     renderer: Renderer;
-    graph: Graph;
-    layout: ForceDirectedLayout;
+    graph: Graph = new Graph();
+    layout: ForceDirectedLayout = new ForceDirectedLayout(this.graph, 1000, 100, 0.2, 2);
 
     canvas: { width: number, height: number } = { width: 1000, height: 1000 };
     nodeSize: number = 50;
@@ -75,8 +75,8 @@
 
     constructor() {
       super();
-      this.graph = new Graph();
-      this.layout = new ForceDirectedLayout(this.graph, 1000, 100, 0.2, 2);
+//      this.graph = new Graph();
+//      this.layout = new ForceDirectedLayout(this.graph, 1000, 100, 0.2, 2);
       this.renderer = new Renderer(
         this.layout,
         this.clear,
@@ -244,24 +244,23 @@
       }
     }
 
-    // Callbacks for the rendering (capture the 'this' on declaration)
-    clear = () => {
+    clear() {
       this.boundingBox = this.layout.getBoundingBox();
     };
-    drawEdge = (edge: AnEdge, pos1: Vector, pos2: Vector) => {
+    drawEdge(edge: AnEdge, pos1: Vector, pos2: Vector) {
       edge.data.pos1 = this.toUICoordinates(pos1);
       edge.data.pos2 = this.toUICoordinates(pos2);
       edge.data.updateLabelPos();
     };
-    drawNode = (node: ANode, pos: Vector) => {
+    drawNode(node: ANode, pos: Vector) {
       node.data.pos = this.toUICoordinates(pos);
       node.data.dragOffset = new Vector(0,0);
       node.data.updateTransform();
     };
-    onRenderStart = () => {
+    onRenderStart() {
       console.time('render');
     };
-    onRenderStop = () => {
+    onRenderStop() {
       console.timeEnd('render');
     };
   }
