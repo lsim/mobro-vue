@@ -2,6 +2,13 @@
 
 > Mobro ported to vue.js
 
+## Known good node/npm versions
+
+```
+node : 9.2.0
+npm  : 5.5.1
+```
+
 ## Build Setup
 
 ``` bash
