@@ -27,7 +27,7 @@
 
 <script lang="ts">
   import Vue from "vue";
-  import { Component, Prop } from 'vue-property-decorator';
+  import { Component, Prop, Watch } from 'vue-property-decorator';
   import logService, {LogEntry, LogService} from "../services/logger";
   import modelMetaService, { ModelType } from "../services/model-meta";
   import LogArea from './log-area';
@@ -63,6 +63,21 @@
 
     beforeDestroy() {
       this.cleanup.forEach((fn) => fn());
+    }
+
+    // When the user has not changed the selection for two hours, reset the selection automatically
+    debouncedReset = _.debounce((numSelected) => {
+      if (numSelected > 0) {
+        this.clearSelection();
+        logService.logMsg("Cleared selection due to inactivity");
+      }
+    }, 2 * 60 * 60 * 1000); // Two hours
+
+    @Watch('modelTypes')
+    onModelTypesChanged() {
+      if (this.modelTypes.length > 0) {
+        this.debouncedReset(this.modelTypes.length);
+      }
     }
 
     initFromSource(host: string) {
@@ -165,6 +180,7 @@
 
     // Prevent main screen from scrolling - only entity descriptors should scroll vertically
     max-height: 100vh;
+    min-height: 100vh;
 
     // Lay out the form inputs
     .query-form {
