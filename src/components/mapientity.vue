@@ -111,8 +111,6 @@
         @include icon-mixin(cancel);
         @include linklike();
         background-color: palette(Red);
-        height: 19px;
-        width: 19px;
       }
     }
 
