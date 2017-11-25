@@ -1,35 +1,26 @@
 <template>
   <div class="mobro">
-    <toolbar></toolbar>
-    <div class="lookupgraph">
-      <form @submit.prevent="lookupEntity"
-            class="lookupgraph__query-form">
-        <autocomplete v-model="typeSearchString"
-                      :options="allTypes"
-                      :placeholder="'type to look up - try BPLA or ExMPLA'"
-                      class="lookupgraph__query-form__autocomplete"></autocomplete>
-        <autocomplete v-model="propSearchString"
-                      :options="allProperties"
-                      :placeholder="'property to look for - try .Encounter or P.E'"
-                      class="lookupgraph__query-form__autocomplete"></autocomplete>
-        <button type="submit">Look up</button>
-        <button type="button" @click="clearSelection" class="lookupgraph__query-form__clear-button">Clear</button>
-      </form>
-      <div class="lookupgraph__entity-canvas">
-        <logarea :numLines="5" class="lookupgraph__entity-canvas__logarea"></logarea>
-        <typegraph
-          class="lookupgraph__entity-canvas__typegraph"
-          :modelTypes="modelTypes"
-          @nodeClicked="modelTypeClicked($event)"
-        ></typegraph>
-        <div class="lookupgraph__entity-canvas__model-types">
-          <mapientity v-for="(modelType, idx) in modelTypes" :key="modelType.name"
-                      :modelType="modelType"
-                      @remove="toggleTypeInCollection(modelType)"
-                      @navigate="toggleTypeInCollection($event)"
-                      class="lookupgraph__entity-canvas__model-type"></mapientity>
-        </div>
-      </div>
+    <toolbar class="toolbar"></toolbar>
+    <form @submit.prevent="lookupEntity" class="query-form">
+      <autocomplete v-model="typeSearchString"
+                    :options="allTypes"
+                    :placeholder="'type to look up - try BPLA or ExMPLA'" class="type-input"></autocomplete>
+      <autocomplete v-model="propSearchString"
+                    :options="allProperties"
+                    :placeholder="'property to look for - try .Encounter or P.E'" class="prop-input"></autocomplete>
+      <button type="submit" class="lookup-bn">Look up</button>
+      <button type="button" @click="clearSelection" class="clear-bn">Clear</button>
+    </form>
+    <!--<logarea :numLines="5" class="logarea"></logarea>-->
+    <typegraph
+      class="typegraph"
+      :modelTypes="modelTypes"
+      @nodeClicked="modelTypeClicked($event)"></typegraph>
+    <div class="entity-description-container">
+      <mapientity v-for="(modelType, idx) in modelTypes" :key="modelType.name"
+                  :modelType="modelType"
+                  @remove="toggleTypeInCollection(modelType)"
+                  @navigate="toggleTypeInCollection($event)"></mapientity>
     </div>
   </div>
 </template>
@@ -152,66 +143,26 @@
 <style lang="scss">
   @import '../styling/material-palette';
 
-  .lookupgraph {
-    /*flex: 1 1 auto; //Note: this doesn't belong here, but for some reason styling won't apply to siblings of router output*/
-    display: flex;
-    flex-direction: column;
+  // Anchor elements into the grid
+  .toolbar { grid-area: toolbar; }
+  .query-form { grid-area: queryform; }
+  .typegraph { grid-area: typegraph; }
+  .entity-description-container { grid-area: entitydescriptioncontainer; overflow-y: auto; }
+
+  .mobro {
+    display: grid;
+    grid-template-rows: 50px auto 1fr;
+    grid-template-columns: 5fr 3fr;
+    grid-template-areas:
+      "toolbar toolbar"
+      "queryform queryform"
+      "typegraph entitydescriptioncontainer";
+    // Prevent main screen from scrolling - only entity descriptors should scroll vertically
+    max-height: 100vh;
   }
 
-  .lookupgraph {
-    &__query-form {
-      flex: 0 0 auto;
-      display: flex;
-      align-items: center;
-
-      &__autocomplete {
-        flex: 1 0 auto;
-      }
-
-      &__clear-button {
-        background-color: palette(Red);
-      }
-    }
-
-    &__entity-canvas {
-      flex: 1 1 auto;
-      display: flex;
-      flex-wrap: wrap;
-      position: relative;
-
-      &__logarea {
-        position:absolute;
-        z-index: -1;
-        left: 5px;
-        top: 5px;
-
-
-        &::before {
-          content: "";
-          position: absolute;
-          width: 100%;
-          height: 100%;
-          background-image: linear-gradient(to bottom, rgba(255,255,255, .6), white);
-        }
-      }
-
-      &__typegraph {
-        flex: 2 0 100px;
-      }
-
-      &__model-types {
-        flex: 1 0 100px;
-        overflow-y: scroll;
-      }
-
-      &__model-type {
-        flex: 1 0 100px;
-      }
-    }
-  }
-
-  ul {
-    list-style-type: none;
-    padding: 0 0 0 8px;
+  .query-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto auto;
   }
 </style>
