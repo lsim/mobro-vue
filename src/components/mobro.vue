@@ -4,12 +4,14 @@
     <form @submit.prevent="lookupEntity" class="query-form">
       <autocomplete v-model="typeSearchString"
                     :options="allTypes"
-                    :placeholder="'type to look up - try BPLA or ExMPLA'" class="type-input"></autocomplete>
+                    :placeholder="'type to look up - try BPLA or ExMPLA'" class="type-input"
+                    v-keybinding.focus.once="['ctrl', 't']"></autocomplete>
       <autocomplete v-model="propSearchString"
                     :options="allProperties"
-                    :placeholder="'property to look for - try .Encounter or P.E'" class="prop-input"></autocomplete>
+                    :placeholder="'property to look for - try .Encounter or P.E'" class="prop-input"
+                    v-keybinding.focus.once="['ctrl', 'p']"></autocomplete>
       <button type="submit" class="lookup-bn">Look up</button>
-      <button type="button" @click="clearSelection" class="clear-bn">Clear</button>
+      <button type="button" v-keybinding="['esc']" @boundkeydown="clearSelection"  @click="clearSelection" class="clear-bn">Clear</button>
     </form>
     <logarea :numLines="10" class="logarea"></logarea>
     <typegraph
