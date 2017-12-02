@@ -1,6 +1,6 @@
 <template>
   <div class="typegraph">
-    <svg viewBox="0 0 1000 1000" class="typegraph__canvas">
+    <svg width="100%" height="100%" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid meet" class="typegraph__canvas">
       <defs><!-- The arrow heads. refX is the offset from the end of the line to the edge of the target node -->
         <marker id="inheritance-arrow"
                 markerWidth="10"
@@ -348,10 +348,10 @@
   .typegraph {
 
     position: relative;
-    display: flex;
+    overflow: auto;
 
     .typegraph__canvas {
-      width: 100%;
+      display: block;
 
       .aggregation_arrow {
         stroke: $aggregationColor;
