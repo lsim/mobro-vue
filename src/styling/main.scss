@@ -3,8 +3,8 @@
 @mixin icon-mixin($iconName) {
   mask-image: url("/static/img/svg/iconset/" + $iconName + ".svg");
   background-color: black;
-  height: 1em;
-  width: 1em;
+  min-width: 1em;
+  min-height: 1em;
 }
 
 $border: solid 1px palette(Blue);

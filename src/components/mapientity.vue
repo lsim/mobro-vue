@@ -1,12 +1,12 @@
 <template>
   <div class="mapientity">
     <div class="entity_header">
-    <span>
-      <span class="entity_header_name">{{modelType.name}}</span>
-      <span v-if="modelType.superType" class="entity_header_superclass">
-        extends <a class="entity_header_superclass_name" @click="navigateTo(modelType.superType)">{{modelType.superType.name}}</a>
+      <span class="entity_header__title" :title="modelType.name + ' extends ' + modelType.superType.name">
+        <span class="entity_header_name">{{modelType.name}}</span>
+        <span v-if="modelType.superType" class="entity_header_superclass">
+          extends <a class="entity_header_superclass_name" @click="navigateTo(modelType.superType)">{{modelType.superType.name}}</a>
+        </span>
       </span>
-    </span>
       <a @click="onRemoveClick" class="entity_remove_link" title="Dismiss"></a>
     </div>
     <div class="entity_details">
@@ -93,6 +93,11 @@
       justify-content: space-between;
       align-items: center;
       white-space: nowrap;
+
+      &__title {
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
 
       border-bottom: $border;
       padding: 5px;
