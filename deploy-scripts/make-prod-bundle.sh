@@ -2,6 +2,8 @@
 
 # This script builds a zip file suitable for copying and unpacking into a hosting environment
 
+npm run build
+
 zip -r mobro-bundle.zip ./server ./dist -x server/node_modules/\*
 
 pushd deploy-scripts
