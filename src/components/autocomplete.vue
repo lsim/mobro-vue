@@ -59,7 +59,7 @@
 
         this.filteredList = this.options
           .map(o => <Relevancy>{option: o, search: o.search(regex)}) // add relevancy
-          .filter((r) => r.search > -1) // filter out irrelevant
+          .filter((r: Relevancy) => r.search > -1) // filter out irrelevant
           .sort((r1,r2) => { return r1.search - r2.search; }) // sort by relevancy
           .map((r) => r.option); // remove relevancy
 
@@ -85,7 +85,7 @@
       setTimeout(() => this.dismissSuggestions(), 10);
     }
 
-    onKeydown(event: any) {
+    onKeydown(event: KeyboardEvent) {
       if(event.code === 'ArrowUp') {
         this.highlightedIndex--;
       } else if(event.code === 'ArrowDown') {
