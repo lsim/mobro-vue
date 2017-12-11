@@ -148,6 +148,7 @@
     modelTypeClicked({ modelType: modelType, event: event }: {modelType: ModelType, event: MouseEvent}) {
       if(event.detail === 2) { // double click
         this.toggleTypeInCollection(modelType);
+        return false;
       }
     }
 
