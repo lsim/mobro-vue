@@ -41,7 +41,7 @@
       <g v-for="node in graph.nodes" :key="node.id"
          :transform="node.data.transform"
          @mousedown="mouseDownHandler(node, $event)"
-         @click="onClick(node, $event)">
+         @dblclick.prevent="onDoubleClick(node, $event)">
         <circle
           :r="nodeSize/2"
           :class="'typegraph__node ' + (node.data.isPrimary ? 'typegraph__node--primary' : '')"></circle>
@@ -75,8 +75,6 @@
 
     constructor() {
       super();
-//      this.graph = new Graph();
-//      this.layout = new ForceDirectedLayout(this.graph, 1000, 100, 0.2, 2);
       this.renderer = new Renderer(
         this.layout,
         this.clear,
@@ -89,6 +87,9 @@
 
     // Drag handling
     mouseDownHandler(node: ANode, mouseDownEvent: MouseEvent) {
+      if (mouseDownEvent.detail > 1) {
+        mouseDownEvent.preventDefault();
+      }
       const handleMouseUp = (mouseUpEvent: MouseEvent) => {
         window.removeEventListener('mousemove', handleMouseMove);
         window.removeEventListener('mouseup', handleMouseUp);
@@ -237,11 +238,8 @@
       return new Vector(sx, sy);
     }
 
-    onClick(node: Node, event: MouseEvent) {
-      if(node.data.dragOffset.magnitude() === 0) {
-        // Only fire event if it wasn't a drag
-        this.$emit('nodeClicked', {modelType: node.data.modelType, event: event});
-      }
+    onDoubleClick(node: Node, event: MouseEvent) {
+      return this.$emit('nodeDoubleClicked', {modelType: node.data.modelType, event: event});
     }
 
     clear() {

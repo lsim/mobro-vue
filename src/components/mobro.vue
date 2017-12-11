@@ -17,7 +17,7 @@
     <typegraph
       class="typegraph"
       :modelTypes="modelTypes"
-      @nodeClicked="modelTypeClicked($event)"></typegraph>
+      @nodeDoubleClicked="modelTypeToggled($event)"></typegraph>
     <div class="entity-description-container">
       <mapientity v-for="(modelType, idx) in modelTypes" :key="modelType.name"
                   :modelType="modelType"
@@ -145,11 +145,8 @@
       }
     }
 
-    modelTypeClicked({ modelType: modelType, event: event }: {modelType: ModelType, event: MouseEvent}) {
-      if(event.detail === 2) { // double click
-        this.toggleTypeInCollection(modelType);
-        return false;
-      }
+    modelTypeToggled({ modelType: modelType, event: event }: {modelType: ModelType, event: MouseEvent}) {
+      this.toggleTypeInCollection(modelType);
     }
 
     clearSelection() {
