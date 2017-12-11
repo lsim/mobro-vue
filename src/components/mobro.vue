@@ -68,17 +68,20 @@
     }
 
     // When the user has not changed the selection for two hours, reset the selection automatically
-    debouncedReset = _.debounce((numSelected) => {
-      if (numSelected > 0) {
-        this.clearSelection();
-        logService.logMsg("Cleared selection due to inactivity");
-      }
-    }, 2 * 60 * 60 * 1000); // Two hours
-
+    debouncedReset: (() => any) | null = null;
     @Watch('modelTypes')
     onModelTypesChanged() {
+      // Having trouble getting the right 'this' reference in the debounce callback. So assigning the function from here as a workaround
+      if (this.debouncedReset == null) {
+        this.debouncedReset = _.debounce(() => {
+          if (this.modelTypes.length > 0) {
+            this.clearSelection();
+            logService.logMsg("Cleared selection due to inactivity");
+          }
+        }, 2 * 60 * 60 * 1000); // Two hours
+      }
       if (this.modelTypes.length > 0) {
-        this.debouncedReset(this.modelTypes.length);
+        this.debouncedReset();
       }
     }
 
