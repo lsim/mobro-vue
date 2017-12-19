@@ -19,7 +19,7 @@
   import { Component } from 'vue-property-decorator';
   import modelMetaService, { ModelDetails } from '../services/model-meta'
   import localStorageService from '../services/localstorage'
-  import AutoComplete from './autocomplete'
+  import AutoComplete from './autocomplete.vue'
 
   @Component({
     components: {

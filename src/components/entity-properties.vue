@@ -1,7 +1,7 @@
 <template>
   <ul v-if="modelType.properties.length > 0" class="entity-properties">
     <li v-for="(property, idx) in modelType.properties"
-        class="entity_property"
+        class="entity_property" :key="idx"
         :class="{entity_property_odd: idx % 2 == 1}">
       <span class="entity_property_name">
         {{property.name}}: <!--

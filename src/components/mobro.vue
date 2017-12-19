@@ -19,7 +19,7 @@
       :modelTypes="modelTypes"
       @nodeDoubleClicked="modelTypeToggled($event)"></typegraph>
     <div class="entity-description-container">
-      <mapientity v-for="(modelType, idx) in modelTypes" :key="modelType.name"
+      <mapientity v-for="modelType in modelTypes" :key="modelType.name"
                   :modelType="modelType"
                   @remove="toggleTypeInCollection(modelType)"
                   @navigate="toggleTypeInCollection($event)"></mapientity>
@@ -32,11 +32,11 @@
   import { Component, Prop, Watch } from 'vue-property-decorator';
   import logService, {LogEntry, LogService} from "../services/logger";
   import modelMetaService, { ModelType } from "../services/model-meta";
-  import LogArea from './log-area';
-  import AutoComplete from './autocomplete'
-  import TypeGraph from './typegraph'
-  import MapiEntity from './mapientity'
-  import ToolBar from './toolbar'
+  import LogArea from './log-area.vue'
+  import AutoComplete from './autocomplete.vue'
+  import TypeGraph from './typegraph.vue'
+  import MapiEntity from './mapientity.vue'
+  import ToolBar from './toolbar.vue'
   import * as _ from 'lodash'
 
   @Component({

@@ -13,7 +13,7 @@
       <div class="entity_details_inheritors">
         Inheritors:
         <span v-if="modelType.subtypes.length == 0">(none)</span>
-        <span v-for="(subtype, idx) in modelType.subtypes">
+        <span v-for="(subtype, idx) in modelType.subtypes" :key="idx">
       <span class="entity_details_inheritors_inheritor"
             @click="navigateTo(subtype)">{{subtype.name}}</span><!--
    --><span v-if="isntLastInheritor(idx)">, </span>
@@ -22,7 +22,7 @@
       <div class="entity_details_properties">
         <entity-properties :modelType="modelType" v-if="modelType.properties.length > 0" @navigate="navigateTo($event)"></entity-properties>
       </div>
-      <div v-for="ancestorType in modelType.ancestors" class="entity_details_properties">
+      <div v-for="ancestorType in modelType.ancestors" :key="ancestorType.name" class="entity_details_properties">
         <div v-if="ancestorType.properties.length > 0">
           <div class="entity_property_header">
             Inherited from <span class="entity_property_header_link" @click="navigateTo(ancestorType)">{{ancestorType.name}}</span>:
@@ -33,7 +33,7 @@
       <div class="entity_details_inbound_refs">
         Inbound references:
         <span v-if="modelType.inboundRefs.length == 0">(none)</span>
-        <span v-for="(inboundRef, idx) in modelType.inboundRefs">
+        <span v-for="(inboundRef, idx) in modelType.inboundRefs" :key="idx">
       <span @click="navigateTo(inboundRef.ownerType)" class="inbound_ref">{{inboundRef.ownerType.name}}.{{inboundRef.propName}}</span><!--
    --><span v-if="isntLastInboundRef(idx)">, </span>
     </span>
@@ -46,7 +46,7 @@
   import Vue from "vue";
   import { Component, Prop, Watch } from 'vue-property-decorator';
   import {ModelType} from "../services/model-meta";
-  import EntityProperties from "./entity-properties"
+  import EntityProperties from "./entity-properties.vue"
 
   @Component({
     components: {

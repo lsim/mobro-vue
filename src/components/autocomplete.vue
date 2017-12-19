@@ -8,7 +8,7 @@
          @click="dismissSuggestions"
          v-if="suggestionsShown"></div>
     <ul class="suggestions" v-if="suggestionsShown">
-      <li v-for="(item, index) in filteredList"
+      <li v-for="(item, index) in filteredList" :key="index"
           :class="{selected: highlightedIndex === index}">
         <a @click="select(item)" >{{item}}</a>
       </li>

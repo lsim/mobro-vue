@@ -34,7 +34,7 @@
             text-anchor="middle"
             :x="edge.data.labelPos.x"
             :y="edge.data.labelPos.y">
-        <tspan v-for="(label, index) in edge.data.labels"
+        <tspan v-for="(label, index) in edge.data.labels" :key="index"
                :dy="index === 0 ? '' : '1em'" :dx="index === 0 ? '' : '-5em'">{{label}}</tspan>
       </text>
       <!-- Now all the nodes -->

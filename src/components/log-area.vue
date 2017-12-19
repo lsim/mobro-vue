@@ -1,6 +1,8 @@
 <template>
   <div class="logarea">
-    <div v-for="entry in displayedEntries" v-bind:class="'logentry__' + entry.type">{{entry.message}}</div>
+    <div v-for="(entry, index) in displayedEntries" 
+         :class="'logentry__' + entry.type"
+         :key="index">{{entry.message}}</div>
   </div>
 </template>
 <script lang="ts">
